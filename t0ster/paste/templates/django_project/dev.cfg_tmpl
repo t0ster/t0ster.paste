@@ -1,0 +1,14 @@
+[buildout]
+extends = buildout.cfg
+
+parts +=
+    omelette
+
+[django]
+wsgi = false
+settings = settings.dev
+
+[omelette]
+recipe = collective.recipe.omelette
+eggs = \${buildout:eggs}
+packages = ${project}/apps ./

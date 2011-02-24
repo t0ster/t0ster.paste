@@ -1,0 +1,6 @@
+#!/bin/sh
+
+BUILDOUT_ROOT=${buildout:directory}
+PROJECT_ROOT=${buildout:directory}/ab
+
+$BUILDOUT_ROOT/bin/django runserver

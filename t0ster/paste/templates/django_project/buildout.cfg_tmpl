@@ -1,0 +1,63 @@
+[buildout]
+parts =
+    \${buildout:custom_eggs}
+    django
+    interpreter
+    \${buildout:scripts}
+
+custom_eggs =
+    django-extensions
+scripts =
+    runserver_script
+    shell_script
+
+eggs =
+     django
+# Python libs 
+# Django apps
+     django-debug-toolbar
+     \${buildout:custom_eggs}
+
+extra_paths = ${project}/apps
+
+[django]
+recipe = djangorecipe
+version = 1.2.5
+project = ${project}
+wsgi = true
+eggs = \${buildout:eggs}
+extra-paths = \${buildout:extra_paths}
+settings = settings.production
+
+[runserver_script]
+recipe = collective.recipe.template
+input = templates/runserver.in
+output = bin/runserver
+mode = 755
+
+[shell_script]
+recipe = collective.recipe.template
+input = templates/shell.in
+output = bin/shell
+mode = 755
+
+[interpreter]
+recipe = zc.recipe.egg
+eggs = \${buildout:eggs}
+extra-paths =
+    \${buildout:extra_paths}
+interpreter = python
+scripts =
+    python
+    ipython
+    django-admin
+    fab
+    easy_install
+    nosetests
+entry-points =
+    django-admin=django.core.management:execute_from_command_line
+
+[django-extensions]
+recipe = zerokspot.recipe.git
+repository = git://github.com/django-extensions/django-extensions.git
+as_egg = true
