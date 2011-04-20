@@ -5,7 +5,6 @@ parts +=
     omelette
 
 [django]
-wsgi = false
 settings = settings.dev
 
 [omelette]

@@ -3,13 +3,10 @@ parts =
     \${buildout:custom_eggs}
     django
     interpreter
-    \${buildout:scripts}
+    scripts
 
 custom_eggs =
     django-extensions
-scripts =
-    runserver_script
-    shell_script
 
 eggs =
      django
@@ -20,26 +17,21 @@ eggs =
 
 extra_paths = ${project}/apps
 
+versions = versions
+
+[versions]
+django = 1.3
+
 [django]
-recipe = djangorecipe
-version = 1.2.5
+recipe = thechristmaspig
 project = ${project}
-wsgi = true
 eggs = \${buildout:eggs}
 extra-paths = \${buildout:extra_paths}
 settings = settings.production
 
-[runserver_script]
-recipe = collective.recipe.template
-input = templates/runserver.in
-output = bin/runserver
-mode = 755
-
-[shell_script]
-recipe = collective.recipe.template
-input = templates/shell.in
-output = bin/shell
-mode = 755
+[scripts]
+recipe = z3c.recipe.filetemplate
+source-directory = templates
 
 [interpreter]
 recipe = zc.recipe.egg
