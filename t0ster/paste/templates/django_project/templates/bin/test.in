@@ -2,4 +2,4 @@
 
 BUILDOUT_ROOT=${buildout:directory}
 
-$BUILDOUT_ROOT/bin/django shell_plus 
+$BUILDOUT_ROOT/bin/django test -v 2 $@ 

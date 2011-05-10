@@ -1,4 +1,6 @@
 [buildout]
+develop = .
+
 parts =
     \${buildout:custom_eggs}
     django
@@ -7,12 +9,26 @@ parts =
 
 custom_eggs =
     django-extensions
+    nosexcover
+    ipdbplugin
+    djangosanetesting
 
 eggs =
-     django
+    ${project}
+    django
 # Python libs 
+    ipython
+    ipdb
+    nose
+    mocker
+    pylint
+    sqlparse
+    werkzeug
+    guppy
+    line_profiler
 # Django apps
      django-debug-toolbar
+     django-devserver
      \${buildout:custom_eggs}
 
 extra_paths = ${project}/apps
@@ -46,10 +62,26 @@ scripts =
     fab
     easy_install
     nosetests
+    pylint
 entry-points =
-    django-admin=django.core.management:execute_from_command_line
+    pylint=${project}.utils:pylint
 
 [django-extensions]
 recipe = zerokspot.recipe.git
-repository = git://github.com/django-extensions/django-extensions.git
+repository = http://github.com/django-extensions/django-extensions.git
+as_egg = true
+
+[nosexcover]
+recipe = zerokspot.recipe.git
+repository = http://github.com/cmheisel/nose-xcover.git
+as_egg = true
+
+[ipdbplugin]
+recipe = zerokspot.recipe.git
+repository = http://github.com/flavioamieiro/nose-ipdb.git
+as_egg = true
+
+[djangosanetesting]
+recipe = zerokspot.recipe.git
+repository = http://github.com/t0ster/django-sane-testing.git
 as_egg = true
